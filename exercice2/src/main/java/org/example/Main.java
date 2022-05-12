@@ -1,23 +1,30 @@
 package org.example;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
-    while(true) {
-        try {
-            System.out.print("Yo! Choisis ton numéro frangin: ");
+        Scanner scanner = new Scanner(System.in);
+        Integer number = null;
 
-            int choix = scanner.nextInt();
-            for (int i = 0; i <= 10; i++) {
-                int result = choix * i;
-                System.out.println(i + " * " + choix + " = " + result);
+        while (number == null) {
+            try {
+                System.out.print("Entrez un nombre : ");
+                number = scanner.nextInt(); // Exception potentiellement levée, donc la variable number reste à null
+                scanner.close();
+            } catch (InputMismatchException e) {
+                System.out.println("Attention ! Vous devez entrez un nombre");
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("Mince une erreur s'est produite :(");
+                return;
             }
-        } catch (Exception e) {
-            System.out.println("t'es serieux là?");
-            scanner.nextLine();
         }
-    }
+
+        scanner.close();
+
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(String.format("%d x %d = %d", number, i, number * i));
+        }
     }
 }
